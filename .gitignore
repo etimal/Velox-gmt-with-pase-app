@@ -173,3 +173,6 @@ cython_debug/
 
 # test folder
 test/
+
+# other files
+*.DS_Store
