@@ -10,7 +10,7 @@ from data_cleaning.pase import clean_pase_data
 from gmt_pase_comparison import comparison
 
 # Flag to control local execution mode
-LOCAL_EXECUTION = True  # Set to False for production deployment
+LOCAL_EXECUTION = False  # Set to False for production deployment
 
 
 def load_gmt_file(file):
