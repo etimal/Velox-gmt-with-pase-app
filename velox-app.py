@@ -76,8 +76,12 @@ def main():
             gmt_file = None
 
         df, error = load_gmt_file(gmt_file)
+
         if error:
-            st.error(error)
+            if gmt_file is None:
+                st.warning("Please upload file")
+            else:
+                st.error(error)
         else:
             st.session_state.gmt_transport_df = df
             st.success("GM Transport file loaded successfully!")
@@ -105,7 +109,10 @@ def main():
 
         df, error = load_pase_file(pase_file)
         if error:
-            st.error(error)
+            if pase_file is None:
+                st.warning("Please upload file")
+            else:
+                st.error(error)
         else:
             st.session_state.pase_df = df
             st.success("PASE file loaded successfully!")
