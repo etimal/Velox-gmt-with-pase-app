@@ -486,13 +486,13 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
             f"current records df : rows {records_df.shape[0]} columns {records_df.shape[1]}"
         )
 
-    # # * save results
-    # fpath = "db/gmt_pase_casetas_por_viaje.csv"
-    # records_df.to_csv(fpath, index=False)
+    # clean records_df columns
+    records_df = records_df.drop(columns=["pase_vs_gmt", "gmt_datetime"])
+
+    # * save results
     logging.info(
         f"Final Records df : rows {records_df.shape[0]} columns {records_df.shape[1]}"
     )
-    # logging.info(f"DF saved in {fpath}")
     logging.info(f"End of the process")
     return records_df
 

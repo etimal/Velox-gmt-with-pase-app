@@ -18,10 +18,10 @@ def load_gmt_file(file):
     try:
         if LOCAL_EXECUTION and file is None:
             # Load from local test directory when in local mode
-            local_path = os.path.join("test", "src", "gmt_transport.xlsx")
-            df = pd.read_excel(local_path)
+            local_path = os.path.join("test", "src", "gmt_transport_1.xlsx")
+            df = pd.read_excel(local_path, engine="openpyxl")
         else:
-            df = pd.read_excel(file)
+            df = pd.read_excel(file, engine="openpyxl")
         return df, None
     except Exception as e:
         return None, f"Error loading GM Transport file: {str(e)}"
@@ -32,7 +32,7 @@ def load_pase_file(file):
     try:
         if LOCAL_EXECUTION and file is None:
             # Load from local test directory when in local mode
-            local_path = os.path.join("test", "src", "pase_data.csv")
+            local_path = os.path.join("test", "src", "pase_data_1.csv")
             df = pd.read_csv(local_path, sep=",", encoding="utf-8")
         else:
             df = pd.read_csv(file, sep=",", encoding="utf-8")
@@ -69,7 +69,7 @@ def main():
         st.subheader("GM Transport File (Excel)")
         if not LOCAL_EXECUTION:
             gmt_file = st.file_uploader(
-                "Upload GM Transport file", type=["xlsx", "xls"], key="gm_upload"
+                "Upload GM Transport file", type=["xlsx"], key="gm_upload"
             )
         else:
             st.info("Running in local mode - Using test/src/gmt_transport.xlsx")
