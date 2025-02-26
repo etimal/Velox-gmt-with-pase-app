@@ -68,9 +68,7 @@ def main():
     with col1:
         st.subheader("GM Transport File (Excel)")
         if not LOCAL_EXECUTION:
-            gmt_file = st.file_uploader(
-                "Upload GM Transport file", type=["xlsx"], key="gm_upload"
-            )
+            gmt_file = st.file_uploader("Upload GM Transport file", key="gm_upload")
         else:
             st.info("Running in local mode - Using test/src/gmt_transport.xlsx")
             gmt_file = None
