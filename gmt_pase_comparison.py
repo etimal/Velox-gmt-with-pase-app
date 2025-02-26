@@ -51,7 +51,20 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
     )
 
     # filtering columns
-    columns = ["Tag", "No.Economico", "Fecha", "Hora", "Caseta", "Carril", "Importe"]
+    # columns = ["Tag", "No.Economico", "Fecha", "Hora", "Caseta", "Carril", "Importe"]
+    columns = [
+        "Tag",
+        "No.Economico",
+        "Fecha",
+        "Hora",
+        "Caseta",
+        "Carril",
+        "Clase",
+        "Importe",
+        "Fecha Aplicacion",
+        "Hora Aplicacion",
+        "Consecar",
+    ]
     pase_df = pase_df[columns]
     logging.info(f"PASE data : rows {pase_df.shape[0]} columns {pase_df.shape[1]}")
 
@@ -448,14 +461,18 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
 
         # reorder columns
         columns_sorting = [
+            "Viaje",
             "Tag",
             "No.Economico",
             "Fecha",
             "Hora",
             "Caseta",
             "Carril",
+            "Clase",
             "Importe",
-            "Viaje",
+            "Fecha Aplicacion",
+            "Hora Aplicacion",
+            "Consecar",
             "Fecha y Hora de Salida",
             "gmt_datetime",
             "pase_datetime",
