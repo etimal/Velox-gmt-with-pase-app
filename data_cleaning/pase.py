@@ -34,18 +34,19 @@ def clean_pase_data(pase_df: pd.DataFrame):
         f"PASE loaded data : rows {pase_df.shape[0]} columns {pase_df.shape[1]}"
     )
 
+    # format columns
     pase_df["Importe"] = (
         pase_df["Importe"].replace("[$,]", "", regex=True).astype(float)
     )
-    pase_df["Tag"] = pase_df["Tag"].str.replace(".", "").str.strip()
     pase_df["Fecha"] = pd.to_datetime(pase_df["Fecha"], format="%d/%m/%Y")
+
+    # sort values
     pase_df = pase_df.sort_values(
         by=["Fecha", "Hora", "No.Economico"], ascending=[True, True, True]
     )
-    # pase_df = add_dataset_information(pase_df)
 
     # convert columns to correct data types
-    pase_df["Tag"] = pase_df["Tag"].str.replace(".", "").str.strip()
+    pase_df["Tag"] = pase_df["Tag"].str.strip()
     pase_df["No.Economico"] = pase_df["No.Economico"].astype(int)
     pase_df["Fecha"] = pd.to_datetime(pase_df["Fecha"], format="%Y-%m-%d")
     pase_df["Hora"] = pd.to_datetime(pase_df["Hora"], format="mixed").dt.time
