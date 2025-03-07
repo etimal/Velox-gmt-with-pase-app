@@ -403,7 +403,7 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
 
         # * Shift viaje value if nombre de caseta is "LINCOLN" ############ Only for LINCOLN ############
         pase_con_num_viaje["viaje_shift"] = pase_con_num_viaje["Viaje"].shift(-1)
-        conditions = [(pase_con_num_viaje["Caseta"] == "LINCOLN")]
+        conditions = [pase_con_num_viaje["Caseta"] == "LINCOLN"]
         choices = [pase_con_num_viaje["viaje_shift"]]
         pase_con_num_viaje["Viaje"] = np.select(
             conditions, choices, default=pase_con_num_viaje["Viaje"]
@@ -413,7 +413,7 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
         pase_con_num_viaje["fecha_salida_ma_min_shift"] = pase_con_num_viaje[
             "Fecha y Hora de Salida"
         ].shift(-1)
-        conditions = [(pase_con_num_viaje["Caseta"] == "LINCOLN")]
+        conditions = [pase_con_num_viaje["Caseta"] == "LINCOLN"]
         choices = [pase_con_num_viaje["fecha_salida_ma_min_shift"]]
         pase_con_num_viaje["Fecha y Hora de Salida"] = np.select(
             conditions, choices, default=pase_con_num_viaje["Fecha y Hora de Salida"]
@@ -448,6 +448,16 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
             on=["Fecha y Hora de Salida", "Viaje"],
             how="left",
             indicator=True,
+        )
+
+        # * add VELOX to No.Economico, if it begins with 2
+        pase_con_num_viaje["No.Economico"] = pase_con_num_viaje["No.Economico"].astype(
+            str
+        )
+        pase_con_num_viaje["No.Economico"] = np.where(
+            pase_con_num_viaje["No.Economico"].astype(str).str.startswith("2"),
+            "VELOX " + pase_con_num_viaje["No.Economico"].astype(str),
+            pase_con_num_viaje["No.Economico"],
         )
 
         # remove columns
