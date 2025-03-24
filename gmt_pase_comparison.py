@@ -324,6 +324,22 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
             by=["Fecha", "Hora"], ascending=[True, True], inplace=True
         )
 
+        # * Target Columns Verification
+        """ It applies in case that any trip number from GMT was assigned to PASE
+        Also, when pase_viajes_multiples_por_fecha and pase_viajes_unicos_por_fecha are empty
+        """
+        target_columns = [
+            "Viaje",
+            "fecha_salida_ma_min",
+            "Fecha y Hora de Salida",
+        ]
+        for column in target_columns:
+            if column not in pase_con_num_viaje.columns:
+                pase_con_num_viaje[column] = None
+                logging.warning(
+                    f"Any trip was assigned to PASE. Column {column} is None"
+                )
+
         """ start datetime verification """
         # * Convert columns to datetime
         # create GMT datetime column for fecha_salida_ma_min
