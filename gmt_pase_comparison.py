@@ -100,6 +100,11 @@ def comparison(viajes_unidad_df: pd.DataFrame, pase_df: pd.DataFrame) -> pd.Data
         logging.info(
             f"PASE filtered data : rows {target_pase_df.shape[0]} columns {target_pase_df.shape[1]} for No.Economico {num_econimico}"
         )
+        if target_pase_df.empty:
+            logging.error(
+                f"No data found for No.Economico {num_econimico} in PASE dataframe, skipping this No.Economico."
+            )
+            continue
 
         # * divide workflow if there are many deliveries
         viajes_por_fecha = (
